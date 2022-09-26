@@ -1,4 +1,3 @@
-source("init.R")
 
 dash_data <- list(
   e_vs_last_week = vs_last_week(

@@ -1,5 +1,13 @@
 source("init.R")
 
+api_path <- paste0(
+  "/home/",
+  Sys.info()["user"],
+  "/.config/octopus-api/api-key.yaml"
+)
+
+file.exists(api_path)
+
 api <- yaml::yaml.load_file("/home/jrh/.config/octopus-api/api-key.yaml")
 
 edat <- consumption(
