@@ -1,0 +1,55 @@
+---
+title: "Energy Consumption - Octopus API"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+    theme:
+      bg: "#FFFFFF"
+      fg: "#003f5c" 
+      primary: "#58508d"
+      base_font:
+        google: Prompt
+      code_font:
+        google: JetBrains Mono
+    
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+# Install thematic and un-comment for themed static plots (i.e., ggplot2)
+# thematic::thematic_rmd()
+dash_data <- readRDS("data/output/dash_data.RDS")
+```
+# Home
+
+## Column {data-width="650"}
+
+### This week vs last week electricity consumption
+
+```{r}
+dash_data$e_vs_last_week$plot
+```
+
+### This week vs last week gas consumption
+
+```{r}
+dash_data$g_vs_last_week$plot
+```
+
+
+## Column {data-width="350"}
+
+### Chart C
+
+<p>Some <strong>text</strong> here</p>
+
+```{r}
+
+```
+
+### Chart D
+
+```{r}
+
+```
