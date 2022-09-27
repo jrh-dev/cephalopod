@@ -8,31 +8,38 @@
   
   pkg_env$._config <- tools::R_user_dir("cephalopod", "config")
   
+  if (!dir.exists(pkg_env$._cache)) dir.create(pkg_env$._cache)
+  
+  if (!dir.exists(pkg_env$._config)) dir.create(pkg_env$._config)
+  
   edat_loc <- paste0(pkg_env$._cache, "/edat.rds")
   
   gdat_loc <- paste0(pkg_env$._cache, "/gdat.rds")
   
-  ele_cached <- file.exists(edat_loc)
-  
-  gas_cached <- file.exists(gdat_loc)
+  key_loc <- paste0(pkg_env$._config, "/api-key.yaml")
   
   # TODO latest update cached isn't really necessary, strip from other functions
   
-  if (ele_cached) {
-    pkg_env$edat <- readRDS(edat_loc)
+  if (file.exists(edat_loc)) {
+    pkg_env$e_cached <- TRUE
   }  else {
+    pkg_env$e_cached <- FALSE
     message("No cache found for electicity data, run get_data().")
   }
   
-  if (gas_cached) {
-    pkg_env$gdat <- readRDS(gdat_loc)
+  if (file.exists(gdat_loc)) {
+    pkg_env$g_cached <- TRUE
   }  else {
-    message("No cache found for electicity data, run get_data().")
+    pkg_env$g_cached <- FALSE
+    message("No cache found for gas data, run get_data().")
   }
   
-  
-  
-  
+  if (file.exists(key_loc)) {
+    pkg_env$key <- yaml::read_yaml(key_loc)
+    message("Stored key detail's retrieved.")
+  } else {
+    message("No stored key details found.")
+  }
   
   return(invisible())
 }
